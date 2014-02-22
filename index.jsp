@@ -1,7 +1,7 @@
 <%@ taglib uri="/tags/struts-logic" prefix="logic" %>
 <logic:redirect forward="welcome"/>
 
-sdsd
+sdsds
 <%--
 
 Redirect default requests to Welcome global ActionForward.
