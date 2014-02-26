@@ -1,0 +1,836 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+<!--
+     KonaKart Struts configuration file.
+	(c) 2006 DS Data Systems UK Ltd, All rights reserved.
+-->
+<struts-config>
+	<!-- ================================================ Form Bean Definitions -->
+	<form-beans>
+		<form-bean name="FilterByManufacturerForm" type="com.konakart.forms.FilterByManufacturerForm">
+		</form-bean>
+		<form-bean name="FilterByCategoryForm" type="com.konakart.forms.FilterByCategoryForm">
+		</form-bean>
+		<form-bean name="AddToCartForm" type="com.konakart.forms.AddToCartForm">
+		</form-bean>
+		<form-bean name="EditCartForm" type="com.konakart.forms.EditCartForm">
+		</form-bean>
+		<form-bean name="EditNotifiedProductForm" type="com.konakart.forms.EditNotifiedProductForm">
+		</form-bean>
+		<form-bean name="EditWishListForm" type="com.konakart.forms.EditWishListForm">
+		</form-bean>
+		<form-bean name="SearchProductForm" type="com.konakart.forms.SearchProductForm">
+		</form-bean>
+		<form-bean name="LoginForm" type="com.konakart.forms.LoginForm">
+		</form-bean>
+		<form-bean name="RegisterCustomerForm" type="com.konakart.forms.RegisterCustomerForm">
+		</form-bean>
+		<form-bean name="WriteReviewForm" type="com.konakart.forms.WriteReviewForm">
+		</form-bean>
+		<form-bean name="ChangePasswordForm" type="com.konakart.forms.ChangePasswordForm">
+		</form-bean>
+		<form-bean name="NewsletterForm" type="com.konakart.forms.NewsletterForm">
+		</form-bean>
+		<form-bean name="CheckoutForm" type="com.konakart.forms.CheckoutForm">
+		</form-bean>
+		<form-bean name="ChangeAddrForm" type="com.konakart.forms.ChangeAddrForm">
+		</form-bean>
+		<form-bean name="ForgottenPasswordForm" type="com.konakart.forms.ForgottenPasswordForm">
+		</form-bean>
+		<form-bean name="CreditCardForm" type="com.konakart.forms.CreditCardForm">
+		</form-bean>
+		<form-bean name="SelectCurrencyForm" type="com.konakart.forms.SelectCurrencyForm">
+		</form-bean>
+		<form-bean name="CreateGiftRegistryForm" type="com.konakart.forms.CreateGiftRegistryForm">
+		</form-bean>
+		<form-bean name="SearchGiftRegistryForm" type="com.konakart.forms.SearchGiftRegistryForm">
+		</form-bean>
+		<form-bean name="PreferencesForm" type="com.konakart.forms.PreferencesForm">
+		</form-bean>
+	</form-beans>
+	<!-- ========================================= Global Exception Definitions -->
+	<global-exceptions>
+		<!-- We should never get an exception since they are trapped in the Action methods-->
+		<!-- <exception key="" type="java.lang.Exception" path="/Exception.do"/> -->
+	</global-exceptions>
+	<!-- =========================================== Global Forward Definitions -->
+	<global-forwards>
+		<forward name="welcome" path="/Welcome.do"/>
+		<forward name="Exception" path="/Exception.do"/>
+		<forward name="Unavailable" path="/Unavailable.do"/>
+	</global-forwards>
+	<!-- =========================================== Action Mapping Definitions -->
+	<action-mappings>		
+		<action path="/AddressBook" type="com.konakart.actions.AddressBookAction">
+			<forward name="AddressBook" path="/CatalogAddressBookPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/AdminLoginSubmit" type="com.konakart.actions.AdminLoginSubmitAction">
+			<forward name="LoginSubmit" path="/CatalogAfterLogin.do"/>
+			<forward name="LoginSubmitError" path="/LogIn.do"/>
+		</action>
+		<action path="/AdvancedSearch" type="com.konakart.actions.AdvancedSearchAction">
+			<forward name="AdvancedSearch" path="/CatalogAdvancedSearchPage.do"/>
+		</action>
+		<action path="/AddToCartSubmit" type="com.konakart.actions.AddToCartSubmitAction" name="AddToCartForm" scope="request">
+			<forward name="ShowCart" path="/ShowCartItems.do" redirect="false"/>
+			<forward name="ShowWishListItems" path="/ShowWishListItems.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/AddToCartFromProdId" type="com.konakart.actions.AddToCartFromProdIdAction">
+			<forward name="ShowCart" path="/ShowCartItems.do"/>
+			<forward name="ShowProductDetails" path="/CatalogShowProdDetailsPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+			<forward name="Welcome" path="/Welcome.do"/>
+		</action>
+		<action path="/CatalogAfterLogin" type="com.konakart.actions.CatalogAfterLoginAction">
+			<forward name="MyAccount" path="/CatalogAfterLoginPage.do"/>
+		</action>
+		<action path="/ChangeDeliveryAddr" type="com.konakart.actions.ChangeDeliveryAddrAction">
+			<forward name="ChangeDeliveryAddrPage" path="/CatalogChangeDeliveryAddrPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/ChangeDeliveryAddrSubmit" type="com.konakart.actions.ChangeDeliveryAddrSubmitAction" name="ChangeAddrForm" scope="request">
+			<forward name="CheckoutDeliveryNoReset" path="/CheckoutDeliveryNoReset.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/ChangeGiftRegistryAddr" type="com.konakart.actions.ChangeGiftRegistryAddrAction">
+			<forward name="ChangeGiftRegistryAddrPage" path="/CatalogChangeGiftRegistryAddrPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/ChangeGiftRegistryAddrSubmit" type="com.konakart.actions.ChangeGiftRegistryAddrSubmitAction" name="ChangeAddrForm" scope="request">
+			<forward name="EditGiftRegistryPage" path="/EditGiftRegistry.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/ChangePassword" type="com.konakart.actions.ChangePasswordAction">
+			<forward name="ChangePasswordPage" path="/CatalogChangePasswordPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/ChangePasswordSubmit" type="com.konakart.actions.ChangePasswordSubmitAction" name="ChangePasswordForm" scope="request" validate="true" input="/ChangePassword.do">
+			<forward name="MyAccount" path="/MyAccount.do" redirect="false"/>
+			<forward name="Error" path="/ChangePassword.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/ChangePaymentAddr" type="com.konakart.actions.ChangePaymentAddrAction">
+			<forward name="ChangePaymentAddrPage" path="/CatalogChangePaymentAddrPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/ChangePaymentAddrSubmit" type="com.konakart.actions.ChangePaymentAddrSubmitAction" name="ChangeAddrForm" scope="request">
+			<forward name="CheckoutPayment" path="/CheckoutPayment.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/CheckoutConfirmation" type="com.konakart.actions.CheckoutConfirmationAction">
+			<forward name="CheckoutConfirmation" path="/CatalogCheckoutConfirmationPage.do"/>
+			<forward name="CheckoutDelivery" path="/CheckoutDelivery.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/CheckoutConfirmationSubmit" type="com.konakart.actions.CheckoutConfirmationSubmitAction">
+			<forward name="CheckoutFinished" path="/CheckoutFinished.do"/>
+			<forward name="CheckoutDelivery" path="/CheckoutDelivery.do"/>
+			<forward name="ShowCartItems" path="/ShowCartItems.do"/>
+			<forward name="CheckoutExternalPayment" path="/CatalogCheckoutExternalPaymentPage.do"/>
+			<forward name="CheckoutExternalPaymentFrame" path="/CatalogCheckoutExternalPaymentFramePage.do"/>
+			<forward name="CheckoutServerPayment" path="/CheckoutServerPayment.do"/>
+			<forward name="WorldPayXMLRedirect" path="/WorldPayXMLRedirect.do"/>
+			<forward name="CommideaVanguard" path="/CommideaVanguard.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>		
+		<action path="/CheckoutDeliveryNoReset" type="com.konakart.actions.CheckoutDeliveryAction" parameter="NoReset">
+			<forward name="CheckoutDelivery" path="/CatalogCheckoutDeliveryPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/CheckoutDelivery" type="com.konakart.actions.CheckoutDeliveryAction">
+			<forward name="CheckoutDelivery" path="/CatalogCheckoutDeliveryPage.do"/>
+			<forward name="ShowCartItems" path="/ShowCartItems.do"/>
+			<forward name="OnePageCheckout" path="/CatalogOnePageCheckoutPage.do"/>
+			<forward name="PunchoutCheckout" path="/PunchoutCheckout.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/CheckoutDeliverySubmit" type="com.konakart.actions.CheckoutDeliverySubmitAction" name="CheckoutForm" scope="request" validate="true" input="/CheckoutDelivery.do">
+			<forward name="CheckoutPayment" path="/CheckoutPayment.do" redirect="false"/>
+			<forward name="CheckoutDelivery" path="/CheckoutDelivery.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/CheckoutFinished" type="com.konakart.actions.CheckoutFinishedAction">
+			<forward name="CheckoutFinished" path="/CatalogCheckoutFinishedPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/CheckoutFinishedSubmit" type="com.konakart.actions.CheckoutFinishedSubmitAction" name="EditNotifiedProductForm" scope="session">
+			<forward name="MyAccount" path="/MyAccount.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/CheckoutPayment" type="com.konakart.actions.CheckoutPaymentAction">
+			<forward name="CheckoutPayment" path="/CatalogCheckoutPaymentPage.do"/>
+			<forward name="CheckoutDelivery" path="/CheckoutDelivery.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/CheckoutPaymentError" type="com.konakart.actions.CheckoutPaymentErrorAction">
+			<forward name="ShowErrorPage" path="/CatalogCheckoutExternalPaymentErrorPage.do"/>
+		</action>
+		<action path="/CheckoutPaymentSubmit" type="com.konakart.actions.CheckoutPaymentSubmitAction" name="CheckoutForm" scope="request" validate="true" input="/CheckoutPayment.do">
+			<forward name="CheckoutConfirmation" path="/CheckoutConfirmation.do" redirect="false"/>
+			<forward name="CheckoutDelivery" path="/CheckoutDelivery.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/CheckoutServerPayment" type="com.konakart.actions.CheckoutServerPaymentAction">
+			<forward name="CollectCreditCardDetails" path="/CatalogCheckoutCreditCardPage.do"/>
+		</action>
+		<action path="/CheckoutServerPaymentSubmit" type="com.konakart.actions.CheckoutServerPaymentSubmitAction" name="CreditCardForm" scope="request" validate="true" input="/CheckoutServerPayment.do">
+			<forward name="usaepay" path="/USAePay.do" redirect="false"/>
+			<forward name="BarclaycardSmartPayApi" path="/BarclaycardSmartPayApi.do" redirect="false"/>
+			<forward name="CyberSource" path="/CyberSource.do" redirect="false"/>
+			<forward name="CyberSourceHOP" path="/CyberSourceHOP.do" redirect="false"/>
+			<forward name="authorizenet" path="/AuthorizeNet.do" redirect="false"/>
+			<forward name="Netpayintl" path="/Netpayintl.do" redirect="false"/>
+			<forward name="PayflowPro" path="/PayflowPro.do" redirect="false"/>
+			<forward name="payjunction" path="/PayJunction.do" redirect="false"/>
+			<forward name="yourpay" path="/YourPay.do" redirect="false"/>
+			<forward name="elink" path="/Elink.do" redirect="false"/>
+			<forward name="eway_au" path="/Eway_au.do" redirect="false"/>
+			<forward name="caledon" path="/Caledon.do" redirect="false"/>
+			<forward name="bluepay" path="/BluePay.do" redirect="false"/>
+		</action>
+		<action path="/CustomerRegistration" type="com.konakart.actions.CustomerRegistrationAction">
+			<forward name="CustomerRegistrationPage" path="/CatalogRegisterCustomerPage.do"/>
+		</action>
+		<action path="/ConditionsOfUse" type="com.konakart.actions.ConditionsOfUseAction">
+			<forward name="ConditionsOfUse" path="/CatalogConditionsOfUsePage.do"/>
+		</action>
+		<action path="/ContactUs" type="com.konakart.actions.ContactUsAction">
+			<forward name="ContactUs" path="/CatalogContactUsPage.do"/>
+		</action>
+		<action path="/AboutUs" type="com.konakart.actions.AboutUsAction">
+			<forward name="AboutUs" path="/CatalogAboutUsPage.do"/>
+		</action>
+		<action path="/CreateGiftRegistry" type="com.konakart.actions.CreateGiftRegistryAction">
+			<forward name="CreateGiftRegistryPage" path="/CatalogCreateGiftRegistryPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/CreateGiftRegistrySubmit" type="com.konakart.actions.CreateGiftRegistrySubmitAction" name="CreateGiftRegistryForm" scope="request" validate="true" input="/CreateGiftRegistry.do">
+			<forward name="MyAccount" path="/MyAccount.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/CustomerRegistrationSubmit" type="com.konakart.actions.CustomerRegistrationSubmitAction" name="RegisterCustomerForm" scope="request" validate="true" input="/CustomerRegistration.do">
+			<forward name="CustomerRegistrationSubmit" path="/CatalogAccountCreatedPage.do" redirect="false"/>
+			<forward name="LoginSubmit" path="/CatalogAfterLogin.do" redirect="false"/>
+			<forward name="ApplicationError" path="/CustomerRegistration.do" redirect="false"/>
+		</action>
+		<action path="/Default" unknown="true" type="com.konakart.actions.DefaultAction">
+			<forward name="SelectCat" path="/SelectCat.do" redirect="false"/>
+			<forward name="SelectProd" path="/SelectProd.do" redirect="false"/>
+			<forward name="ShowSearchByManufacturerResultsByLink" path="/ShowSearchByManufacturerResultsByLink.do" redirect="false"/>
+			<forward name="ShowSearchByManufacturerResults" path="/ShowSearchByManufacturerResults.do" redirect="false"/>
+			<forward name="ShowProductsForManufacturer" path="/ShowProductsForManufacturer.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do" redirect="false"/>
+		</action>
+		<action path="/DeleteAddr" type="com.konakart.actions.DeleteAddrAction">
+			<forward name="DeleteAddrPage" path="/CatalogDeleteAddrPage.do"/>
+			<forward name="AddressBook" path="/AddressBook.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/DeleteAddrSubmit" type="com.konakart.actions.DeleteAddrSubmitAction">
+			<forward name="AddressBook" path="/AddressBook.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/DeleteGiftRegistry" type="com.konakart.actions.DeleteGiftRegistryAction">
+			<forward name="MyAccount" path="/MyAccount.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/DigitalDownload" type="com.konakart.actions.DigitalDownloadAction">
+			<forward name="MyAccount" path="/MyAccount.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/DownloadInvoice" type="com.konakart.actions.DownloadInvoiceAction">
+			<forward name="MyAccount" path="/MyAccount.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/EditAddr" type="com.konakart.actions.EditAddrAction">
+			<forward name="EditAddrPage" path="/CatalogEditAddrPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/EditAddrSubmit" type="com.konakart.actions.EditAddrSubmitAction" name="RegisterCustomerForm" scope="request" validate="true" input="/EditAddr.do">
+			<forward name="AddressBook" path="/AddressBook.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+			<forward name="ApplicationError" path="/EditAddr.do" redirect="false"/>
+		</action>
+		<!-- need to give it session scope because it contains arrays and crashes in the bean copy id set to request -->
+		<action path="/EditCartSubmit" type="com.konakart.actions.EditCartSubmitAction" name="EditCartForm" scope="session">
+			<forward name="ShowCart" path="/ShowCartItems.do" redirect="false"/>
+			<forward name="CheckoutDelivery" path="/CheckoutDelivery.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/EditCustomer" type="com.konakart.actions.EditCustomerAction">
+			<forward name="EditCustomerPage" path="/CatalogEditCustomerPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/EditCustomerSubmit" type="com.konakart.actions.EditCustomerSubmitAction" name="RegisterCustomerForm" scope="request" validate="true" input="/EditCustomer.do">
+			<forward name="MyAccount" path="/MyAccount.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+			<forward name="EditCustomerSubmitError" path="/EditCustomer.do" redirect="false"/>
+		</action>
+		<action path="/EditGiftRegistry" type="com.konakart.actions.EditGiftRegistryAction">
+			<forward name="MyAccount" path="/MyAccount.do" redirect="false"/>
+			<forward name="EditGiftRegistryPage" path="/CatalogEditGiftRegistryPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/EditGiftRegistrySubmit" type="com.konakart.actions.EditGiftRegistrySubmitAction" name="CreateGiftRegistryForm" scope="request" validate="true" input="/EditGiftRegistry.do">
+			<forward name="MyAccount" path="/MyAccount.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/EditNewsletter" type="com.konakart.actions.EditNewsletterAction">
+			<forward name="EditNewsletterPage" path="/CatalogEditNewsletterPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/EditNewsletterSubmit" type="com.konakart.actions.EditNewsletterSubmitAction" name="NewsletterForm" scope="request" validate="true" input="/EditNewsletter.do">
+			<forward name="MyAccount" path="/MyAccount.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/EditNotifiedProducts" type="com.konakart.actions.EditNotifiedProductsAction">
+			<forward name="EditNotifiedProductsPage" path="/CatalogEditNotifiedProductsPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<!-- need to give it session scope because it contains arrays and crashes in the bean copy -->
+		<action path="/EditNotifiedProductsSubmit" type="com.konakart.actions.EditNotifiedProductsSubmitAction" name="EditNotifiedProductForm" scope="session">
+			<forward name="MyAccount" path="/MyAccount.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<!-- need to give it session scope because it contains arrays and crashes in the bean copy id set to request -->
+		<action path="/EditWishListSubmit" type="com.konakart.actions.EditWishListSubmitAction" name="EditWishListForm" scope="session">
+			<forward name="ShowWishList" path="/ShowWishListItems.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/EnableCustomer" type="com.konakart.actions.EnableCustomerSubmitAction">
+			<forward name="Welcome" path="/Welcome.do"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/Exception" forward="exception.summary.page"/>
+		<action path="/FilterProd" type="com.konakart.actions.FilterProductAction" name="FilterByManufacturerForm" scope="request">
+			<forward name="ShowProducts" path="/CatalogShowProdsPage.do" redirect="false"/>
+		</action>
+		<action path="/FilterProdByCategory" type="com.konakart.actions.FilterProductByCategoryAction" name="FilterByCategoryForm" scope="request">
+			<forward name="ShowProducts" path="/CatalogShowProdsPage.do" redirect="false"/>
+		</action>
+		<action path="/FilterProdByTags" type="com.konakart.actions.FilterProductByTagsAction">
+			<forward name="ShowProducts" path="/CatalogShowProdsPage.do"/>
+		</action>
+		<action path="/FilterSearchByManufacturer" type="com.konakart.actions.FilterSearchByManufacturerAction" name="FilterByManufacturerForm" scope="request">
+			<forward name="ShowProducts" path="/CatalogShowProdsPage.do" redirect="false"/>
+		</action>
+		<action path="/FilterSearchByCategory" type="com.konakart.actions.FilterSearchByCategoryAction" name="FilterByCategoryForm" scope="request">
+			<forward name="ShowProducts" path="/CatalogShowProdsPage.do" redirect="false"/>
+		</action>
+		<action path="/ForgotPassword" forward="/CatalogForgotPasswordPage.do">
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/ForgotPasswordSubmit" type="com.konakart.actions.ForgotPasswordSubmitAction" name="ForgottenPasswordForm" scope="request" validate="true" input="/ForgotPassword.do">
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+			<forward name="Error" path="/ForgotPassword.do" redirect="false"/>
+		</action>
+		<!-- need to give it session scope because it contains arrays and crashes in the bean copy id set to request -->
+		<action path="/GiftRegistryListSubmit" type="com.konakart.actions.GiftRegistryListSubmitAction" name="EditWishListForm" scope="session">
+			<forward name="ShowCartItems" path="/ShowCartItems.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do"/>	
+		</action>
+		<action path="/GiftRegistrySearch" type="com.konakart.actions.GiftRegistrySearchAction">
+			<forward name="GiftRegistrySearch" path="/CatalogGiftRegistrySearchPage.do"/>
+		</action>
+		<action path="/InitFromToken" type="com.konakart.actions.InitFromTokenSubmitAction">
+			<forward name="Welcome" path="/Welcome.do"/>
+			<forward name="CheckoutDelivery" path="/CheckoutDelivery.do"/>
+		</action>
+		<action path="/LogIn" type="com.konakart.actions.LoginAction">
+			<forward name="LoginPage" path="/CatalogLogInPage.do"/>
+			<forward name="LoggedIn" path="/CatalogAfterLogin.do"/>
+		</action>
+		<action path="/LogOut" type="com.konakart.actions.LogoutAction">
+			<forward name="LogoutPage" path="/CatalogLogOutPage.do"/>
+		</action>
+		<action path="/LoginSubmit" type="com.konakart.actions.LoginSubmitAction" name="LoginForm" scope="request" validate="true" input="/LogIn.do">
+			<forward name="LoginSubmit" path="/CatalogAfterLogin.do" redirect="false"/>
+			<forward name="LoginSubmitError" path="/LogIn.do" redirect="false"/>
+			<forward name="WriteReview" path="/WriteReview.do" redirect="false"/>
+			<forward name="EditCustomer" path="/EditCustomer.do" redirect="false"/>
+			<forward name="EditAddr" path="/EditAddr.do" redirect="false"/>
+			<forward name="NewAddr" path="/NewAddr.do" redirect="false"/>
+			<forward name="DeleteAddr" path="/DeleteAddr.do" redirect="false"/>
+			<forward name="EditNewsletter" path="/EditNewsletter.do" redirect="false"/>
+			<forward name="ChangePassword" path="/ChangePassword.do" redirect="false"/>
+			<forward name="AddressBook" path="/AddressBook.do" redirect="false"/>
+			<forward name="MyAccount" path="/MyAccount.do" redirect="false"/>
+			<forward name="EditNotifiedProducts" path="/EditNotifiedProducts.do" redirect="false"/>
+			<forward name="SetNotification" path="/SetNotification.do" redirect="false"/>
+			<forward name="ResetNotification" path="/ResetNotification.do" redirect="false"/>
+			<forward name="ShowAllOrders" path="/ShowAllOrders.do" redirect="false"/>
+			<forward name="ShowOrderDetails" path="/ShowOrderDetails.do" redirect="false"/>
+			<forward name="CheckoutDelivery" path="/CheckoutDelivery.do" redirect="false"/>
+			<forward name="PreSelectProd" path="/PreSelectProd.do" redirect="false"/>
+			<forward name="CreateGiftRegistry" path="/CreateGiftRegistry.do" redirect="false"/>
+			<forward name="ShowRewardPoints" path="/ShowRewardPoints.do" redirect="false"/>
+			<forward name="ManagePreferences" path="/ManagePreferences.do" redirect="false"/>
+		</action>
+		<action path="/ManagePreferences" type="com.konakart.actions.ManagePreferencesAction">
+			<forward name="ManagePreferencesPage" path="/CatalogManagePreferencesPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/ManagePreferencesSubmit" type="com.konakart.actions.ManagePreferencesSubmitAction" name="PreferencesForm" scope="request" validate="true" input="/ManagePreferences.do">
+			<forward name="MyAccount" path="/MyAccount.do" redirect="false"/>
+			<forward name="Error" path="/ManagePreferences.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/MyAccount" type="com.konakart.actions.MyAccountAction">
+			<forward name="MyAccount" path="/CatalogAfterLogin.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/NavigateAllOrders" type="com.konakart.actions.NavigateAllOrdersAction">
+			<forward name="ShowAllOrders" path="/CatalogShowAllOrdersPage.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/NavigateAllRev" type="com.konakart.actions.NavigateAllReviewAction">
+			<forward name="ShowAllReviews" path="/CatalogShowAllReviewsPage.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do"/>
+		</action>
+		<action path="/NavigateProd" type="com.konakart.actions.NavigateProductAction">
+			<forward name="ShowProducts" path="/CatalogShowProdsPage.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do"/>
+		</action>
+		<action path="/NavigateRev" type="com.konakart.actions.NavigateReviewAction">
+			<forward name="ShowReviews" path="/CatalogShowReviewsPage.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do"/>
+		</action>
+		<action path="/NavigateRewardPoints" type="com.konakart.actions.NavigateRewardPointsAction">
+			<forward name="ShowRewardPoints" path="/CatalogShowRewardPointsPage.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/NavigateWishList" type="com.konakart.actions.NavigateWishListAction">
+			<forward name="ShowWishLists" path="/CatalogShowGiftRegistriesPage.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do"/>
+		</action>
+		<action path="/NavigateGiftRegistryItems" type="com.konakart.actions.NavigateGiftRegistryItemsAction" name="EditWishListForm" scope="session">
+			<forward name="ShowGiftRegistryItems" path="/CatalogShowGiftRegistryItemsNoEditPage.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do"/>
+		</action>
+		<action path="/NewAddr" type="com.konakart.actions.NewAddrAction">
+			<forward name="NewAddrPage" path="/CatalogNewAddrPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/NewAddrSubmit" type="com.konakart.actions.NewAddrSubmitAction" name="RegisterCustomerForm" scope="request" validate="true" input="/NewAddr.do">
+			<forward name="AddressBook" path="/AddressBook.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+			<forward name="ApplicationError" path="/NewAddr.do" redirect="false"/>
+		</action>
+		<action path="/PreSelectProd" type="com.konakart.actions.PreShowProductDetailsAction">
+			<forward name="SelectProd" path="/SelectProd.do" redirect="false"/>
+		</action>
+		<action path="/PrivacyNotice" type="com.konakart.actions.PrivacyNoticeAction">
+			<forward name="PrivacyNotice" path="/CatalogPrivacyNoticePage.do"/>
+		</action>
+		<action path="/PunchoutEntry" type="com.konakart.actions.PunchOutEntryAction">
+			<forward name="Welcome" path="/Welcome.do"/>
+		</action>
+		<action path="/PunchoutCheckout" type="com.konakart.actions.PunchOutCheckoutAction">
+			<forward name="Punchout" path="/CatalogCheckoutPunchoutPage.do"/>
+			<forward name="Welcome" path="/Welcome.do"/>
+		</action>
+		<action path="/QuickSearch" type="com.konakart.actions.QuickSearchAction" name="SearchProductForm" scope="request">
+			<forward name="QuickSearch" path="/CatalogShowProdsPage.do" redirect="false"/>
+		</action>
+		<action path="/RemoveTags" type="com.konakart.actions.RemoveAllTagsFromFilterAction">
+			<forward name="ShowProducts" path="/CatalogShowProdsPage.do"/>
+		</action>
+		<action path="/RepeatOrder" type="com.konakart.actions.RepeatOrderAction">
+			<forward name="MyAccount" path="/CatalogAfterLoginPage.do"/>
+			<forward name="ShowCartItems" path="/ShowCartItems.do"/>	
+			<forward name="CheckoutConfirmation" path="/CheckoutConfirmation.do"/>
+			<forward name="OnePageCheckout" path="/CatalogOnePageCheckoutPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/ResetNotification" type="com.konakart.actions.ResetNotificationAction"> 
+			<forward name="ShowProductDetails" path="/CatalogShowProdDetailsPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/SelectCat" type="com.konakart.actions.SelectCategoryAction1">
+		<!-- <action path="/SelectCat" type="com.konakart.actions.SelectCategoryAction"> Deprecated -->
+			<forward name="ShowCategories" path="/CatalogShowCatsPage.do" redirect="false"/>
+			<forward name="ShowProducts" path="/CatalogShowProdsPage.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do" redirect="false"/>
+		</action>
+		<action path="/SelectCurrency" type="com.konakart.actions.SelectCurrencySubmitAction" name="SelectCurrencyForm" scope="request">
+			<forward name="MainPage" path="/Welcome.do"/>
+		</action>
+		<action path="/SetLocale_en_GB" type="com.konakart.actions.SetLocaleAction" parameter="en_GB">
+			<forward name="SetLocale" path="/CatalogMainPage.do"/>
+		</action>
+		<action path="/SetLocale_de_DE" type="com.konakart.actions.SetLocaleAction" parameter="de_DE">
+			<forward name="SetLocale" path="/CatalogMainPage.do"/>
+		</action>
+		<action path="/SetLocale_es_ES" type="com.konakart.actions.SetLocaleAction" parameter="es_ES">
+			<forward name="SetLocale" path="/CatalogMainPage.do"/>
+		</action>
+		<action path="/SetLocale_pt_BR" type="com.konakart.actions.SetLocaleAction" parameter="pt_BR">
+			<forward name="SetLocale" path="/CatalogMainPage.do"/>
+		</action>
+		<action path="/SetNotification" type="com.konakart.actions.SetNotificationAction"> 
+			<forward name="ShowProductDetails" path="/CatalogShowProdDetailsPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/SelectProd" type="com.konakart.actions.ShowProductDetailsAction">
+			<forward name="ShowProductDetails" path="/CatalogShowProdDetailsPage.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do" redirect="false"/>
+		</action>
+		<action path="/ShippingAndReturns" type="com.konakart.actions.ShippingAndReturnsAction">
+			<forward name="ShippingAndReturns" path="/CatalogShippingAndReturnsPage.do"/>
+		</action>
+		<action path="/ShowReviews" type="com.konakart.actions.ShowReviewsAction">
+			<forward name="ShowReviews" path="/CatalogShowReviewsPage.do"/>
+		</action>
+		<action path="/ShowAllOrders" type="com.konakart.actions.ShowAllOrdersAction">
+			<forward name="ShowAllOrders" path="/CatalogShowAllOrdersPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/ShowAllReviews" type="com.konakart.actions.ShowAllReviewsAction">
+			<forward name="ShowAllReviews" path="/CatalogShowAllReviewsPage.do"/>
+		</action>
+		<action path="/ShowAllSpecials" type="com.konakart.actions.ShowAllSpecialsAction">
+			<forward name="ShowAllSpecials" path="/CatalogShowProdsPage.do"/>
+		</action>
+		<action path="/ShowAllNewProds" type="com.konakart.actions.ShowAllNewProdsAction">
+			<forward name="ShowAllNewProds" path="/CatalogShowProdsPage.do"/>
+		</action>
+		<!-- need to give it session scope because it contains arrays and crashes in the bean copy id set to request -->
+		<action path="/ShowCartItems" type="com.konakart.actions.ShowCartItemsAction" name="EditCartForm" scope="session">
+			<forward name="ShowCart" path="/CatalogShowCartItemsPage.do"/>
+		</action>
+		<!-- need to give it session scope because it contains arrays and crashes in the bean copy id set to request -->
+		<action path="/ShowGiftRegistryItems" type="com.konakart.actions.ShowGiftRegistryItemsAction" name="EditWishListForm" scope="session">
+			<forward name="ShowGiftRegistryItems" path="/CatalogShowGiftRegistryItemsNoEditPage.do"/>
+			<forward name="Welcome" path="/Welcome.do"/>		
+		</action>
+		<action path="/ShowGiftRegistrySearchResults" type="com.konakart.actions.GiftRegistrySearchSubmitAction" name="SearchGiftRegistryForm" scope="request" validate="true" input="/AdvancedSearch.do">
+			<forward name="GiftRegistrySearchSubmit" path="/CatalogShowGiftRegistriesPage.do" redirect="false"/>
+		</action>		
+		<action path="/ShowHomepage" type="com.konakart.actions.ShowHomepageAction">
+			<forward name="ShowHomepage" path="/CatalogShowHomepagePage.do"/>
+		</action>
+		<action path="/ShowImage" type="com.konakart.actions.ShowImageAction">
+			<forward name="ShowImage" path="/CatalogShowImagePage.do"/>
+			<forward name="Welcome" path="/Welcome.do"/>
+		</action>
+		<action path="/ShowOrderDetails" type="com.konakart.actions.ShowOrderDetailsAction">
+			<forward name="ShowOrderDetails" path="/CatalogShowOrderDetailsPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+			<forward name="MyAccount" path="/MyAccount.do"/>
+		</action>
+		<action path="/ShowProductsForManufacturer" type="com.konakart.actions.ShowProductsForManufacturerAction">
+			<forward name="ShowProductsForManufacturer" path="/CatalogShowProdsPage.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do" redirect="false"/>
+		</action>
+		<action path="/ShowRewardPoints" type="com.konakart.actions.ShowRewardPointsAction">
+			<forward name="ShowRewardPoints" path="/CatalogShowRewardPointsPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/ShowSearchByManufacturerResults" type="com.konakart.actions.SearchByManufacturerSubmitAction" name="FilterByManufacturerForm" scope="request">
+			<forward name="SearchByManufacturerSubmit" path="/CatalogShowProdsPage.do" redirect="false"/>
+		</action>
+		<action path="/ShowSearchByManufacturerResultsByLink" type="com.konakart.actions.SearchByManufacturerByLinkSubmitAction">
+			<forward name="SearchByManufacturerSubmit" path="/CatalogShowProdsPage.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do" redirect="false"/>
+		</action>
+		<action path="/ShowSearchResults" type="com.konakart.actions.AdvancedSearchSubmitAction" name="SearchProductForm" scope="request" validate="true" input="/AdvancedSearch.do">
+			<forward name="AdvancedSearchSubmit" path="/CatalogShowProdsPage.do" redirect="false"/>
+		</action>
+		<action path="/ShowReviewDetails" type="com.konakart.actions.ShowReviewDetailsAction">
+			<forward name="ShowReviewDetails" path="/CatalogShowReviewDetailsPage.do"/>
+			<forward name="Welcome" path="/Welcome.do"/>
+		</action>
+		<action path="/ShowRandomReviewDetails" type="com.konakart.actions.ShowRandomReviewDetailsAction">
+			<forward name="ShowRandomReviewDetails" path="/CatalogShowReviewDetailsPage.do"/>
+			<forward name="Welcome" path="/Welcome.do"/>
+		</action>
+		<!-- need to give it session scope because it contains arrays and crashes in the bean copy id set to request -->
+		<action path="/ShowWishListItems" type="com.konakart.actions.ShowWishListItemsAction" name="EditWishListForm" scope="session">
+			<forward name="ShowWishListItems" path="/CatalogShowWishListItemsPage.do"/>
+			<forward name="ShowGiftRegistryItems" path="/CatalogShowGiftRegistryItemsPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/SortGiftRegistryItems" type="com.konakart.actions.SortGiftRegistryItemsAction" name="EditWishListForm" scope="session">
+			<forward name="ShowGiftRegistryItems" path="/CatalogShowGiftRegistryItemsNoEditPage.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do"/>
+		</action>
+		<action path="/SortProd" type="com.konakart.actions.SortProductAction">
+			<forward name="ShowProducts" path="/CatalogShowProdsPage.do" redirect="false"/>
+			<forward name="Welcome" path="/Welcome.do" redirect="false"/>
+		</action>
+		<action path="/Unavailable" forward="unavailable.page"/>
+		<action path="/Welcome" type="com.konakart.actions.CatalogMainPageAction">
+			<forward name="Success" path="/CatalogMainPage.do"/>
+		</action>
+		<action path="/WriteReview" type="com.konakart.actions.WriteReviewAction">
+			<forward name="WriteReview" path="/CatalogWriteReviewPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<!-- Need input page when doing validation since this is the page used to display the errors -->
+		<action path="/WriteReviewSubmit" type="com.konakart.actions.WriteReviewSubmitAction" name="WriteReviewForm" scope="request" validate="true" input="/WriteReview.do">
+			<forward name="WriteReviewSubmit" path="/ShowReviews.do" redirect="false"/>
+			<forward name="Login" path="/LogIn.do" redirect="false"/>
+		</action>
+		<action path="/CatalogAboutUsPage" forward="catalog.aboutus.page"/>
+		<action path="/CatalogAccountCreatedPage" forward="catalog.accountcreated.page"/>
+		<action path="/CatalogAddressBookPage" forward="catalog.addressbook.page"/>
+		<action path="/CatalogAdvancedSearchPage" forward="catalog.advancedsearch.page"/>
+		<action path="/CatalogAfterLoginPage" forward="catalog.afterlogin.page"/>
+		<action path="/CatalogChangeDeliveryAddrPage" forward="catalog.changedeliveryaddr.page"/>
+		<action path="/CatalogChangeGiftRegistryAddrPage" forward="catalog.change.gift.registry.addr.page"/>
+		<action path="/CatalogChangePasswordPage" forward="catalog.changepassword.page"/>	
+		<action path="/CatalogChangePaymentAddrPage" forward="catalog.changepaymentaddr.page"/>
+		<action path="/CatalogCheckoutConfirmationPage" forward="catalog.checkoutconfirmation.page"/>
+		<action path="/CatalogCheckoutCreditCardPage" forward="catalog.checkoutcreditcard.page"/>
+		<action path="/CatalogCheckoutDeliveryPage" forward="catalog.checkoutdelivery.page"/>
+		<action path="/CatalogCheckoutExternalPaymentErrorPage" forward="catalog.external.payment.error.page"/>		
+		<action path="/CatalogCheckoutExternalPaymentPage" forward="catalog.external.payment.page"/>		
+		<action path="/CatalogCheckoutExternalPaymentFramePage" forward="catalog.external.payment.frame.page"/>		
+		<action path="/CatalogCheckoutExternalPaymentFromFramePage" forward="catalog.external.payment.from.frame.page"/>		
+		<action path="/CatalogCheckoutFinishedPage" forward="catalog.checkoutfinished.page"/>
+		<action path="/CatalogCheckoutPaymentPage" forward="catalog.checkoutpayment.page"/>
+		<action path="/CatalogCheckoutPunchoutPage" forward="catalog.punchout.page"/>		
+		<action path="/CatalogConditionsOfUsePage" forward="catalog.conditionsofuse.page"/>
+		<action path="/CatalogContactUsPage" forward="catalog.contactus.page"/>		
+		<action path="/CatalogCreateGiftRegistryPage" forward="catalog.create.gift.registry.page"/>		
+		<action path="/CatalogForgotPasswordPage" forward="catalog.forgotpassword.page"/>
+		<action path="/CatalogGiftRegistrySearchPage" forward="catalog.gift.registry.search.page"/>
+		<action path="/CatalogDeleteAddrPage" forward="catalog.deleteaddr.page"/>
+		<action path="/CatalogEditAddrPage" forward="catalog.editaddr.page"/>
+		<action path="/CatalogEditCustomerPage" forward="catalog.editcustomer.page"/>
+		<action path="/CatalogEditGiftRegistryPage" forward="catalog.edit.gift.registry.page"/>		
+		<action path="/CatalogEditNewsletterPage" forward="catalog.editnewsletter.page"/>
+		<action path="/CatalogEditNotifiedProductsPage" forward="catalog.EditNotifiedProducts.page"/>
+		<action path="/CatalogLogInPage" forward="catalog.login.page"/>
+		<action path="/CatalogLogOutPage" forward="catalog.logout.page"/>
+		<action path="/CatalogManagePreferencesPage" forward="catalog.manage.preferences.page"/>
+		<action path="/CatalogMainPage" forward="catalog.main.page"/>
+		<action path="/CatalogNewAddrPage" forward="catalog.newaddr.page"/>
+		<action path="/CatalogOnePageCheckoutPage" forward="catalog.onepagecheckout.page"/>
+		<action path="/CatalogPrivacyNoticePage" forward="catalog.privacynotice.page"/>
+		<action path="/CatalogRegisterCustomerPage" forward="catalog.registercustomer.page"/>
+		<action path="/CatalogShippingAndReturnsPage" forward="catalog.shippingandreturns.page"/>
+		<action path="/CatalogShowCartItemsPage" forward="catalog.showcartitems.page"/>
+		<action path="/CatalogShowCatsPage" forward="catalog.showcats.page"/>
+		<action path="/CatalogShowGiftRegistriesPage" forward="catalog.showgiftregistries.page"/>
+		<action path="/CatalogShowGiftRegistryItemsPage" forward="catalog.showgiftregistryitems.page"/>
+		<action path="/CatalogShowGiftRegistryItemsNoEditPage" forward="catalog.showgiftregistryitems.noedit.page"/>
+		<action path="/CatalogShowProdsPage" forward="catalog.showprods.page"/>
+		<action path="/CatalogShowProdDetailsPage" forward="catalog.showprod.details.page"/>
+		<action path="/CatalogShowReviewsPage" forward="catalog.showreviews.page"/>
+		<action path="/CatalogShowAllReviewsPage" forward="catalog.showallreviews.page"/>
+		<action path="/CatalogShowAllOrdersPage" forward="catalog.showallorders.page"/>
+		<action path="/CatalogShowHomepagePage" forward="catalog.showhomepage.page"/>
+		<action path="/CatalogShowMergeInfoPage" forward="catalog.showmergeinfo.page"/>
+		<action path="/CatalogShowReviewDetailsPage" forward="catalog.showreview.details.page"/>
+		<action path="/CatalogShowOrderDetailsPage" forward="catalog.showorder.details.page"/>
+		<action path="/CatalogShowImagePage" forward="catalog.showimage.page"/>
+		<action path="/CatalogShowWishListItemsPage" forward="catalog.showwishlistitems.page"/>
+		<action path="/CatalogWriteReviewPage" forward="catalog.writereview.page"/>		
+		<action path="/CatalogShowRewardPointsPage" forward="catalog.showrewardpoints.page"/>
+		<action path="/CommideaVanguardPayment" forward="catalog.commideacreditcard.page"/>	
+		<action path="/CommideaVanguard3DSecure" forward="catalog.commidea3dsecurecheck.page"/>	
+		
+
+		<!-- =========================================== IPN Callbacks -->
+		<action path="/BarclaycardSmartPayApiNotification" type="com.konakart.actions.ipn.BarclaycardSmartPayApiNotificationAction"/>
+		<action path="/BarclaycardSmartPayHostedNotification" type="com.konakart.actions.ipn.BarclaycardSmartPayHostedNotificationAction"/>
+		<action path="/ChronoPayCallback" type="com.konakart.actions.ipn.ChronoPayAction"/>
+		<action path="/EPayCallback" type="com.konakart.actions.ipn.EPaybgAction"/>
+		<action path="/MoneyBookersCallback" type="com.konakart.actions.ipn.MoneyBookersAction"/>
+		<action path="/PayPalCallback" type="com.konakart.actions.ipn.PayPalAction"/>
+		<action path="/WorldPayCallback" type="com.konakart.actions.ipn.WorldPayAction"/>
+		
+		<!-- =========================================== Gateway Pre-Processing -->
+		<action path="/WorldPayXMLRedirect" type="com.konakart.actions.gateways.WorldPayXMLRedirectAction">
+			<forward name="CheckoutError" path="/CheckoutPaymentError.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/CommideaVanguard" type="com.konakart.actions.gateways.CommideaVanguardAction">
+			<forward name="CreditCard"  path="/CommideaVanguardPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+
+		<!-- =========================================== Gateway Redirect Responses -->
+		<action path="/CommideaVanguard1" type="com.konakart.actions.gateways.CommideaVanguard1Action">
+			<forward name="CreditCard"  path="/CommideaVanguardPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+			<forward name="3DSecure" path="/CommideaVanguard3DSecure.do"/>
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="CheckoutError" path="/CheckoutPaymentError.do"/>
+		</action>
+		<action path="/CommideaVanguard2" type="com.konakart.actions.gateways.CommideaVanguard2Action">
+			<forward name="Login" path="/LogIn.do"/>
+			<forward name="CheckoutError" path="/CheckoutPaymentError.do"/>
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+		</action>
+		<action path="/WorldPayXMLRedirectResponse" type="com.konakart.actions.gateways.WorldPayXMLRedirectResponseAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="CheckoutError" path="/CheckoutPaymentError.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/BarclaycardSmartPayHostedResponse" type="com.konakart.actions.gateways.BarclaycardSmartPayHostedResponseAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="CheckoutError" path="/CheckoutPaymentError.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/BarclaycardSmartPayApiResponse" type="com.konakart.actions.gateways.BarclaycardSmartPayApi3DResponseAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutPaymentError.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/CyberSourceResponse" type="com.konakart.actions.gateways.CyberSourceResponseAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutServerPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/CyberSourceHOPResponse" type="com.konakart.actions.gateways.CyberSourceHOPResponseAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="CheckoutError" path="/CheckoutPaymentError.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+
+		<!-- =========================================== Server Side Gateways -->
+		<action path="/USAePay" type="com.konakart.actions.gateways.UsaepayAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutServerPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/BarclaycardSmartPayApi" type="com.konakart.actions.gateways.BarclaycardSmartPayApiAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutServerPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+			<forward name="Redirect3dSecure" path="/CatalogCheckoutExternalPaymentPage.do"/>
+		</action>
+		<action path="/AuthorizeNet" type="com.konakart.actions.gateways.AuthorizenetAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutServerPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/CyberSource" type="com.konakart.actions.gateways.CyberSourceAction">
+			<forward name="PostToGateway" path="/CatalogCheckoutExternalPaymentPage.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/Netpayintl" type="com.konakart.actions.gateways.NetpayintlAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutServerPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/PayflowPro" type="com.konakart.actions.gateways.PayflowProAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutServerPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/Eway_au" type="com.konakart.actions.gateways.Eway_auAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutServerPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/PayJunction" type="com.konakart.actions.gateways.PayjunctionAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutServerPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/YourPay" type="com.konakart.actions.gateways.YourpayAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutServerPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>
+		</action>
+		<action path="/Elink" type="com.konakart.actions.gateways.ElinkAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutServerPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>								
+		</action>
+		<action path="/Caledon" type="com.konakart.actions.gateways.CaledonAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutServerPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>								
+		</action>
+		<action path="/BluePay" type="com.konakart.actions.gateways.BluepayAction">
+			<forward name="Approved" path="/CheckoutFinished.do"/>
+			<forward name="TryAgain" path="/CheckoutServerPayment.do"/>
+			<forward name="Login" path="/LogIn.do"/>								
+		</action>
+
+		<!-- =========================================== XML over HTTP  -->
+		<action path="/XMLOverHTTP" type="com.konakart.actions.XMLOverHTTPAction">
+			<forward name="SendResponse" path="/WEB-INF/jsp/XMLOverHTTPResponse.jsp"/>
+		</action>
+	
+		<!-- =========================================== Mobile Application  -->
+		<action path="/LanguageMenu" forward="language.menu.page"/>		
+		<action path="/AboutMenu" forward="about.menu.page"/>		
+	
+	</action-mappings>
+	<!-- ============================================= Controller Configuration -->
+	<controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
+	<!-- ======================================== Message Resources Definitions -->
+	<!--  <message-resources parameter="Messages" null="false"/>  -->
+	<message-resources parameter="Messages" null="false" factory="org.apache.struts.util.ReloadablePropertyMessageResourcesFactory"/>
+	<!-- =============================================== Plug Ins Configuration -->
+	<!-- ======================================================= Tiles plugin -->
+	<!--
+     This plugin initialize Tiles definition factory. This later can takes some
+	 parameters explained here after. The plugin first read parameters from
+	 web.xml, thenoverload them with parameters defined here. All parameters
+	 are optional.
+     The plugin should be declared in each struts-config file.
+       - definitions-config: (optional)
+            Specify configuration file names. There can be several comma
+		    separated file names (default: ?? )
+       - moduleAware: (optional - struts1.1)
+            Specify if the Tiles definition factory is module aware. If true
+            (default), there will be one factory for each Struts module.
+			If false, there will be one common factory for all module. In this
+            later case, it is still needed to declare one plugin per module.
+            The factory will be initialized with parameters found in the first
+            initialized plugin (generally the one associated with the default
+            module).
+			  true : One factory per module. (default)
+			  false : one single shared factory for all modules
+	   - definitions-parser-validate: (optional)
+	        Specify if xml parser should validate the Tiles configuration file.
+			  true : validate. DTD should be specified in file header (default)
+			  false : no validation
+
+	  Paths found in Tiles definitions are relative to the main context.
+  -->
+	<plug-in className="org.apache.struts.tiles.TilesPlugin">
+		<!-- Path to XML definition file -->
+		<set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml"/>
+		<!-- Set Module-awareness to true -->
+		<set-property property="moduleAware" value="true"/>
+		<set-property property="definitions-debug" value="2"/>
+	</plug-in>
+	<!-- =================================================== Validator plugin -->
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames" value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+		<set-property property="definitions-debug" value="2"/>
+	</plug-in>
+	<!-- START: This one for a full konakart.war configuration -->
+	<plug-in className="com.konakart.plugins.KKEngPlugin">
+		<set-property property="propertiesPath" value="konakart.properties"/>
+		<set-property property="mode" value="0"/>
+		<set-property property="storeId" value="store1"/>
+		<set-property property="customersShared" value="false"/>
+		<set-property property="productsShared" value="false"/>
+		<set-property property="categoriesShared" value="false"/>
+		<set-property property="definitions-debug" value="2"/>
+	</plug-in>
+	<!-- END: This one for a full konakart.war configuration -->
+	<!-- START: This one for a full konakart_axis_client.war configuration -->
+	<plug-in className="com.konakart.plugins.KKAppEngPlugin">
+		<set-property property="propertiesPath" value="konakart.properties"/>
+		<set-property property="appPropertiesPath" value="konakart_app.properties"/>
+		<set-property property="mode" value="0"/>
+		<set-property property="storeId" value="store1"/>
+		<set-property property="customersShared" value="false"/>
+		<set-property property="productsShared" value="false"/>
+		<set-property property="categoriesShared" value="false"/>
+		<set-property property="definitions-debug" value="2"/>
+	</plug-in>
+	<!-- END: This one for a full konakart_axis_client.war configuration -->
+</struts-config>
