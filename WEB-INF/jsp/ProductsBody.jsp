@@ -61,7 +61,7 @@
 							if ( currentManu != null  && currentManu.getId() > -1 && myForm != null) { 
 								myForm.setManufacturerId(currentManu.getId());
 							}
-					%>
+					%>sdd
 					<html:form action="/FilterProd.do" ><span class="small"><bean:message key="products.body.show"/>:</span>&nbsp;
 						<html:select name="FilterByManufacturerForm" property="manufacturerId" onchange="submit()">
 							<html:option key="products.body.all.manufacturers" value="<%=searchAll%>"></html:option>
@@ -216,54 +216,35 @@
 	      	</logic:empty>
 	      	<logic:notEmpty name="prodArray">
 				<div class="body-content-div">
-					<table border="0" width="100%" cellspacing="0" cellpadding="2" class="productListing">
-						<tr>
-							<td align="center" class="productListing-heading">&nbsp;&nbsp;</td>
-							<td class="productListing-heading">
-								&nbsp;<html:link page="/SortProd.do" paramId="orderBy" paramName="prodMgr" paramProperty="obName" title="<%=sortProductsByName%>" styleClass="productListing-heading"><bean:message key="products.body.product.name"/></html:link>&nbsp;
-							</td>
-							<td align="right" class="productListing-heading">
-								&nbsp;<html:link page="/SortProd.do" paramId="orderBy" paramName="prodMgr" paramProperty="obPrice" title="<%=sortProductsByPrice%>" styleClass="productListing-heading"><bean:message key="products.body.price"/></html:link>&nbsp;
-							</td>
-							<td align="center" class="productListing-heading">&nbsp;<bean:message key="products.body.buy.now"/>&nbsp;</td>
-						</tr>
-		
-						<% int i=0; %>
-						<logic:iterate id="prod" name="prodArray" length="maxRows" type="com.konakart.appif.ProductIf">
-							<%i++; if ( i % 2 == 0) { %>
-								<tr class="productListing-even">
-							<% } else { %>
-								<tr class="productListing-odd">
-							<% } %>
-								<td align="center" class="productListing-data">
-									&nbsp;<html:link page="/SelectProd.do" paramId="prodId" paramName="prod" paramProperty="id"><img src="<%=kkEng.getImageBase()%>/<%=prod.getImage()%>" border="0" alt="<%=prod.getName()%>" title=" <%=prod.getName()%> " width="<%=kkEng.getSmallImageWidth()%>" height="<%=kkEng.getSmallImageHeight()%>"></html:link>&nbsp;
-								</td>
-								<td class="productListing-data">
-									&nbsp;<html:link page="/SelectProd.do" paramId="prodId" paramName="prod" paramProperty="id"><%=prod.getName()%></html:link>&nbsp;
-								</td>
+
+				    <div data-role="collapsible" data-collapsed="false">
+				    	<ul data-role="listview" data-inset="true">
+							<logic:iterate id="prod" name="prodArray" length="maxRows" type="com.konakart.appif.ProductIf">
+								<li>			
+								<html:link page="/SelectProd.do" paramId="prodId" paramName="prod" paramProperty="id"><img src="<%=kkEng.getImageBase()%>/<%=prod.getImage()%>" border="0" alt="<%=prod.getName()%>" title=" <%=prod.getName()%> " width="<%=kkEng.getSmallImageWidth()%>" height="<%=kkEng.getSmallImageHeight()%>"><h1 ><%=prod.getName()%> </h1> 
+
 								<logic:empty name="prod" property="specialPriceExTax">
 									<%if (kkEng.displayPriceWithTax()){%>
-									<td align="right" class="productListing-data">&nbsp;<%=kkEng.formatPrice(prod.getPriceIncTax())%>&nbsp;</td>
+									<span class="price"><%=kkEng.formatPrice(prod.getPriceIncTax())%></span>
 									<%}else{%>
-									<td align="right" class="productListing-data">&nbsp;<%=kkEng.formatPrice(prod.getPriceExTax())%>&nbsp;</td>
+									<span class="price"><%=kkEng.formatPrice(prod.getPriceExTax())%></span>
 									<%}%>		    											                        				
 								</logic:empty>
 								<logic:notEmpty name="prod" property="specialPriceExTax">									
 									<%if (kkEng.displayPriceWithTax()){%>
-										<td align="right" class="productListing-data">&nbsp;<s><%=kkEng.formatPrice(prod.getPriceIncTax())%></s>&nbsp;&nbsp;<span class="productSpecialPrice"><%=kkEng.formatPrice(prod.getSpecialPriceIncTax())%></span>&nbsp;</td>
+										<span class="price old"><%=kkEng.formatPrice(prod.getPriceIncTax())%></span>&nbsp;&nbsp;<span class="productSpecialPrice"><%=kkEng.formatPrice(prod.getSpecialPriceIncTax())%><</span>
 									<%}else{%>
-										<td align="right" class="productListing-data">&nbsp;<s><%=kkEng.formatPrice(prod.getPriceExTax())%></s>&nbsp;&nbsp;<span class="productSpecialPrice"><%=kkEng.formatPrice(prod.getSpecialPriceExTax())%></span>&nbsp;</td>
+										<span class="price old"><%=kkEng.formatPrice(prod.getPriceExTax())%></span>&nbsp;&nbsp;<span class="productSpecialPrice"><%=kkEng.formatPrice(prod.getSpecialPriceExTax())%></span>
 									<%}%>		    											                        				
 								</logic:notEmpty>
-		
-								<td align="center" class="productListing-data">
-									<html:link page="/AddToCartFromProdId.do" paramId="prodId" paramName="prod" paramProperty="id">
-										<span class="button"><span><bean:message key="categories.body.buy.now"/></span></span>
-									</html:link>&nbsp;
-								</td>
-							</tr>
-						</logic:iterate>
-					</table>
+								</html:link>	
+										
+										
+								</li>
+							</logic:iterate>
+				        </ul>
+				    </div>
+
 					<table border="0" width="100%" cellspacing="0" cellpadding="2">
 						<tr>
 							<td class="smallText" >

@@ -124,20 +124,7 @@
 						<td>
 							<div id="imgcontent">
 								<div id="gallery">
-									<div id="gallery_nav">								
-										<%for (int i = 1; i < 5; i++){%>
-											<%String name = prod.getImage();%>
-											<%if (name != null){%>
-												<%String[] names = name.split("\\.");%>
-												<%name = names[0];%>
-												<%String ext = names[1];%>
-												<%String imgSrc = kkEng.getImageBase()+"/"+name+"_"+i+"."+ext;%>
-												<a rel="img<%=i%>" href="javascript:;"><img src="<%=imgSrc%>" /></a>											
-											<%}%>
-										<%}%>									
-									</div>
-									
-									<div id="gallery_output">
+									<div id="gallery_output" >
 										<%for (int i = 1; i < 5; i++){%>
 											<%String name = prod.getImage();%>
 											<%if (name != null){%>
@@ -149,6 +136,19 @@
 											<%}%>
 										<%}%>									
 									</div>
+									<div  style="text-align:center;" >		
+										<%for (int i = 1; i < 5; i++){%>
+											<%String name = prod.getImage();%>
+											<%if (name != null){%>
+												<%String[] names = name.split("\\.");%>
+												<%name = names[0];%>
+												<%String ext = names[1];%>
+												<%String imgSrc = kkEng.getImageBase()+"/"+name+"_"+i+"."+ext;%>
+												<a rel="img<%=i%>" href="javascript:;"><img src="<%=imgSrc%>" style="margin-right:20px;"/></a>											
+											<%}%>
+										<%}%>									
+									</div>
+									
 									
 									<div class="clear"></div>
 								</div>
@@ -188,11 +188,11 @@
 									</logic:iterate>
 								</table>
 							 </logic:notEmpty>						
-							<p><%=prod.getDescription()%></p>
+							<p><%=prod.getDescription()%></p>1
 							<logic:notEmpty name="prodMgr" property="bundledProducts">
 								<bean:define id="bundledProducts" name="prodMgr" property="bundledProducts"/>
 								<logic:iterate id="bProd" name="bundledProducts"  type="com.konakart.appif.ProductIf">
-									<p><%=bProd.getDescription()%></p>
+									<p><%=bProd.getDescription()%></p>2
 								</logic:iterate>
 							</logic:notEmpty>
 							<logic:notEmpty name="prod" property="customAttrArray">
